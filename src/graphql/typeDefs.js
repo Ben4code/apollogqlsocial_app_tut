@@ -2,14 +2,27 @@ const { gql } = require('apollo-server')
 
 
 module.exports = gql`
+  type Comment{
+    id: ID!
+    body: String!
+    username: String!
+    createdAt: String!
+  }
+
+  type Like{
+    id: ID!
+    username: String!
+    createdAt: String!
+  }
+
   type Post {
     id: ID!
     title: String!
     body: String!
     author: String
-    comments: String
-    likes: String
-    createdAt: String!
+    comments: [Comment]!
+    likes: [Like]!
+    createdAt: [Comment]!
   }
 
   type User {
@@ -46,5 +59,12 @@ module.exports = gql`
     # Post
     createPost(title: String!, body: String!): Post!
     deletePost(postId: ID!): String
+    
+    # Comment
+    createComment(postId: ID!, body: String!): Post!
+    deleteComment(postId: ID!, commentId: ID!): Post!
+
+    # Like 
+    likePost(postId: ID!): Post!
   }
 `;
