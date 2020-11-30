@@ -9,7 +9,9 @@ module.exports = gql`
     author: String
     comments: String
     likes: String
+    createdAt: String!
   }
+
   type User {
     id: ID!
     email: String!
@@ -20,6 +22,7 @@ module.exports = gql`
   
   type Query{
     getPosts: [Post]
+    getPost(postId: ID!): Post
     getUsers: [User]
   }
 
@@ -36,7 +39,12 @@ module.exports = gql`
   }
   
   type Mutation{
+    # User
     register(registerInput: RegisterInput): User!
     login(loginInput: LoginInput): User!
+    
+    # Post
+    createPost(title: String!, body: String!): Post!
+    deletePost(postId: ID!): String
   }
 `;

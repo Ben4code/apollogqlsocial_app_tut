@@ -8,6 +8,7 @@ module.exports = {
     ...userResolver.Query
   },
   Mutation: {
-    ...userResolver.Mutation
+    ...userResolver.Mutation,
+    ...postResolver.Mutation
   }
 }
