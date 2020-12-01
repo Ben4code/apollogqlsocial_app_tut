@@ -38,8 +38,14 @@ module.exports = {
           createdAt: new Date().toISOString(),
         });
 
-        const res = await newPost.save();
-        return { ...res._doc };
+        const post = await newPost.save();
+        
+        // Trigger Subscription
+        context.pubSub.publish('NEW_POST', {
+          newPost: post
+        })
+        return post;
+
       } catch (error) {
         throw new Error(error);
       }
@@ -59,4 +65,9 @@ module.exports = {
       }
     },
   },
+  Subscription: {
+    newPost:{
+      subscribe: (_, __, {pubSub}) => pubSub.asyncIterator('NEW_POST')
+    }
+  }
 };

@@ -21,7 +21,9 @@ module.exports = gql`
     body: String!
     author: String
     comments: [Comment]!
+    commentCount: Int!
     likes: [Like]!
+    likeCount: Int!
     createdAt: [Comment]!
   }
 
@@ -66,5 +68,9 @@ module.exports = gql`
 
     # Like 
     likePost(postId: ID!): Post!
+  }
+
+  type Subscription{
+    newPost: Post!
   }
 `;
