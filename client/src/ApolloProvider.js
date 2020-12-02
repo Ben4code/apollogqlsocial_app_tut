@@ -10,7 +10,7 @@ import {
 
 
 const client = new ApolloClient({
-  uri: "http://localhost:3124",
+  uri: "http://localhost:5000",
   cache: new InMemoryCache(),
 });
 
