@@ -19,12 +19,12 @@ module.exports = gql`
     id: ID!
     title: String!
     body: String!
-    author: String
+    author: String!
     comments: [Comment]!
     commentCount: Int!
     likes: [Like]!
     likeCount: Int!
-    createdAt: [Comment]!
+    createdAt: String!
   }
 
   type User {

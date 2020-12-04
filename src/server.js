@@ -10,13 +10,28 @@ dotenv.config();
 const pubSub = new PubSub();
 
 const server = new ApolloServer({
-  cors:  {
-    origin: "*",
-  },
   typeDefs,
   resolvers,
   context: ({ req }) => ({ req, pubSub })
 });
+
+// mongoose
+//   .connect(process.env.MONGODBURI, {
+//     useNewUrlParser: true,
+//     useUnifiedTopology: true,
+//   })
+//   .then(() => {
+//     console.log("Database is running.");
+//   });
+
+// server.listen().then(({url}) => {
+//   console.log(url)
+//   console.log(`
+//     Server is running!
+//     Listening on port 5000
+//   `);
+// });
+
 
 mongoose
   .connect(process.env.MONGODBURI, {
@@ -24,12 +39,10 @@ mongoose
     useUnifiedTopology: true,
   })
   .then(() => {
-    console.log("Database is running.");
-  });
-
-server.listen().then(() => {
-  console.log(`
-    Server is running!
-    Listening on port 5000
+    return server.listen({port: 5000})
+  })
+  .then((res)=> {
+    console.log(`
+      Server is running on port ${res.url}
   `);
-});
+  })
